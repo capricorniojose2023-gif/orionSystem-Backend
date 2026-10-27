@@ -5,7 +5,8 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
-  }
+  },
+  family: 4 // <--- Añade esto aquí para forzar IPv4 en Render
 });
 
 pool.on('connect', () => {
@@ -14,6 +15,5 @@ pool.on('connect', () => {
 
 module.exports = {
   pool,
-  // Por si algún controlador antiguo usa poolPromise, lo adaptamos para que no falle:
   poolPromise: Promise.resolve(pool)
 };
